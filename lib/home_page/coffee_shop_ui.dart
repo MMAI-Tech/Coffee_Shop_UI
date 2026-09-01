@@ -42,7 +42,7 @@ class CoffeeShopUi extends StatelessWidget {
                     ),
                     child: Icon(
                       Icons.grid_view_rounded,
-                      color: Colors.grey[800],
+                      color: Colors.grey[700],
                       size: sw * 0.06,
                     ),
                   ),
@@ -78,20 +78,21 @@ class CoffeeShopUi extends StatelessWidget {
               Container(
                 width: sw * 0.9,
                 height: sh * 0.056,
-          
+
                 child: TextFormField(
+                  style: TextStyle(color: Colors.white)
+                  ,
+                  cursorColor: Colors.white,
                   decoration: InputDecoration(
+                    isDense: true,
+                    contentPadding: EdgeInsets.symmetric(vertical: sw*0.02),
                     filled: true,
                     fillColor: Color(0xFF141921),
-                    prefixIcon: Icon(Icons.search, color: Colors.grey[800]),
-                    hint: Text(
-                      'Find Your Cofee',
-                      style: TextStyle(
-                        color: Colors.grey[800],
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
+                    prefixIcon: Icon(Icons.search, color: Colors.grey[700],size: sw*0.065,),
+                    hintText: "Find Your Coffee...",
+                    hintStyle: TextStyle(color: Colors.grey[700],fontSize: sw*0.05),
                     border: OutlineInputBorder(
+
                       borderRadius: BorderRadius.circular(sw * 0.04),
                       borderSide: BorderSide(color: Color(0xFF141921)),
                     ),
@@ -120,26 +121,26 @@ class CoffeeShopUi extends StatelessWidget {
                         children: [
                           ItemName(ontap: (){
                             ref.read(coffee_num.notifier).state = 0;
-                          }, name: "Cappuccino",color: val == 0?Colors.orange:Colors.grey[800],toggle: val == 0?true:false,),
+                          }, name: "Cappuccino",color: val == 0?Colors.orange:Colors.grey[700],toggle: val == 0?true:false,),
                           SizedBox(width: sh * 0.03),
                           ItemName(ontap: (){
                             ref.read(coffee_num.notifier).state = 1;
-                          },name: "Espresso",color: val == 1?Colors.orange:Colors.grey[800],toggle: val == 1?true:false,),
+                          },name: "Espresso",color: val == 1?Colors.orange:Colors.grey[700],toggle: val == 1?true:false,),
 
                           SizedBox(width: sh * 0.03),
                           ItemName(ontap: (){
                             ref.read(coffee_num.notifier).state = 2;
-                          },name: "Latte",color: val == 2?Colors.orange:Colors.grey[800],toggle: val == 2?true:false,),
+                          },name: "Latte",color: val == 2?Colors.orange:Colors.grey[700],toggle: val == 2?true:false,),
 
                           SizedBox(width: sh * 0.03),
                           ItemName(ontap: (){
                             ref.read(coffee_num.notifier).state = 3;
-                          },name: "Flat White",color: val == 3?Colors.orange:Colors.grey[800],toggle: val == 3?true:false,),
+                          },name: "Flat White",color: val == 3?Colors.orange:Colors.grey[700],toggle: val == 3?true:false,),
 
                           SizedBox(width: sh * 0.03),
                           ItemName(ontap: (){
                             ref.read(coffee_num.notifier).state = 4;
-                          },name: "French Press",color: val == 4?Colors.orange:Colors.grey[800],toggle: val == 4?true:false,),
+                          },name: "French Press",color: val == 4?Colors.orange:Colors.grey[700],toggle: val == 4?true:false,),
 
                         ],
                       );
