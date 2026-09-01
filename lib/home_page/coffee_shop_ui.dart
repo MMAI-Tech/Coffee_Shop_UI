@@ -317,23 +317,40 @@ class CoffeeShopUi extends StatelessWidget {
           ),
         ),
       ),
-      bottomNavigationBar: BottomAppBar(
-         height: sh*0.07,
-        color:Color(0xFF0C0F14) ,
-        padding:EdgeInsets.zero ,
-        child:
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            NavIcon(icon: Icons.home,color: Colors.orange,),
-            NavIcon(icon: Icons.shopping_cart,),
-            NavIcon(icon: Icons.favorite,),
-            NavIcon(icon: Icons.notifications)
-          ],
+      bottomNavigationBar:
+          Consumer(builder: (context,ref,child){
+            num val = ref.watch(nav_num);
+            return BottomAppBar(
+                height: sh*0.07,
+                color:Color(0xFF0C0F14) ,
+                padding:EdgeInsets.zero ,
+                child:
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    NavIcon(onTap: (){
+                      ref.read(nav_num.notifier).state = 0;
+                    },
+                      icon: Icons.home,color:val == 0? Colors.orange:Colors.grey[800],),
+                    NavIcon(onTap: (){
+                      ref.read(nav_num.notifier).state = 1;
+                    },
+                      icon: Icons.shopping_cart,color:val == 1? Colors.orange:Colors.grey[800],),
+                    NavIcon(onTap: (){
+                      ref.read(nav_num.notifier).state = 2;
+                    },
+                      icon: Icons.favorite,color:val == 2? Colors.orange:Colors.grey[800],),
+                    NavIcon(onTap: (){
+                      ref.read(nav_num.notifier).state = 3;
+                    },
+                        icon: Icons.notifications,color:val == 3? Colors.orange:Colors.grey[800],)
+                  ],
 
-        )
-      ),
+                )
+            );
+          })
+
     );
   }
 }

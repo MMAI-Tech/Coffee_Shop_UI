@@ -12,6 +12,7 @@ class NavIcon extends StatelessWidget {
   final IconData icon;
   final VoidCallback? onTap;
  final Color? color;
+
   @override
   Widget build(BuildContext context) {
     double sw = MediaQuery.of(context).size.width;
