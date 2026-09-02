@@ -9,12 +9,14 @@ class CoffeeCard extends StatelessWidget {
     required this.name,
     this.type,
     this.price,
+    this.ontap
   });
   final String image_path;
   final String? rating;
   final String name;
   final String? type;
   final String? price;
+  final VoidCallback? ontap;
 
   @override
   Widget build(BuildContext context) {
@@ -34,32 +36,35 @@ class CoffeeCard extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Container(
-              margin: EdgeInsets.only(bottom: sw*0.015),
-              width: sw*0.362,
-              height: sh*0.17,
-              alignment: Alignment.topRight,
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(sw*0.04),
-                  image: DecorationImage(image: AssetImage(image_path),fit: BoxFit.cover)
-              ),
+            GestureDetector(
+              onTap: ontap,
               child: Container(
-                padding: EdgeInsets.all(sw*0.01),
+                margin: EdgeInsets.only(bottom: sw*0.015),
+                width: sw*0.362,
+                height: sh*0.17,
+                alignment: Alignment.topRight,
                 decoration: BoxDecoration(
-                    color: Colors.black.withValues(alpha: 0.4),
-                    borderRadius: BorderRadius.only(
-                        bottomLeft:Radius.circular(sw*0.05)
-                    )
+                    borderRadius: BorderRadius.circular(sw*0.04),
+                    image: DecorationImage(image: AssetImage(image_path),fit: BoxFit.cover)
                 ),
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Icon(Icons.star,color: Color(0xFFD17842),size: sw*0.04,),
-                    Data(text: rating??'0.0',color: Colors.white,size: sw*0.03,)
-                  ],
-                ),
-              )
-              ,
+                child: Container(
+                  padding: EdgeInsets.all(sw*0.01),
+                  decoration: BoxDecoration(
+                      color: Colors.black.withValues(alpha: 0.4),
+                      borderRadius: BorderRadius.only(
+                          bottomLeft:Radius.circular(sw*0.05)
+                      )
+                  ),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Icon(Icons.star,color: Color(0xFFD17842),size: sw*0.04,),
+                      Data(text: rating??'0.0',color: Colors.white,size: sw*0.03,)
+                    ],
+                  ),
+                )
+                ,
+              ),
             ),
             Data(text: name,color: Colors.white54,size: sw*0.05,),
             Data(text: type??'',color: Colors.white54,size: sw*0.03,),

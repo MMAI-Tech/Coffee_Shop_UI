@@ -1,4 +1,5 @@
-import 'package:coffee_shop_ui/home_page/coffee_shop_ui.dart';
+import 'package:coffee_shop_ui/coffee_card/item_card.dart';
+import 'package:coffee_shop_ui/home_page/coffee_shop.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
