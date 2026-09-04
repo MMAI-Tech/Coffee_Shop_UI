@@ -1,5 +1,6 @@
 
 
+import 'package:coffee_shop_ui/cart_screen/my_cart.dart';
 import 'package:coffee_shop_ui/coffee_card/coffee_card_riverpod.dart';
 import 'package:coffee_shop_ui/coffee_card/item_card.dart';
 import 'package:coffee_shop_ui/home_page/coffee_card.dart';
@@ -51,7 +52,7 @@ class CoffeeShopUi extends StatelessWidget {
                   // Profile  Container
                   Container(
                     height: sh * 0.065,
-                    width: sw * 0.125,
+                    width: sw * 0.131,
                     decoration: BoxDecoration(
                       color: Colors.black,
                       borderRadius: BorderRadius.circular(sw * 0.04),
@@ -648,6 +649,7 @@ class CoffeeShopUi extends StatelessWidget {
                     },
                       icon: Icons.home,color:val == 0? Colors.orange:Colors.grey[800],),
                     NavIcon(onTap: (){
+                      Navigator.of(context).push(MaterialPageRoute(builder: (context)=>MyCart()));
                       ref.read(nav_num.notifier).state = 1;
                     },
                       icon: Icons.shopping_cart,color:val == 1? Colors.orange:Colors.grey[800],),

@@ -48,8 +48,9 @@ class SpecialCoffeeCard extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Data(text: name,color: Colors.white,size: sw*0.05,),
-                    Data(text: type??'',color: Colors.white,),
                     SizedBox(height: sh*0.01,),
+                    Data(text: type??'',color: Colors.white,),
+                    SizedBox(height: sh*0.025,),
                     Row(
                       children: [
                         Icon(Icons.attach_money,color: Color(0xFFD17842),size: sw*0.055,),

@@ -67,8 +67,9 @@ class CoffeeCard extends StatelessWidget {
               ),
             ),
             Data(text: name,color: Colors.white54,size: sw*0.05,),
-            Data(text: type??'',color: Colors.white54,size: sw*0.03,),
             SizedBox(height: sh*0.01,),
+            Data(text: type??'',color: Colors.white54,size: sw*0.03,),
+            SizedBox(height: sh*0.015,),
             Row(
               children: [
                 Icon(Icons.attach_money,color: Color(0xFFD17842),size: sw*0.047,),

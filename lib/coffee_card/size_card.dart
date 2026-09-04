@@ -39,6 +39,7 @@ class SizeCard extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Data(text: size,color: text_color??Colors.white,),
+            SizedBox(height: sh*0.004,),
             Data(text: weight,color: Colors.grey[600],),
 
           ],

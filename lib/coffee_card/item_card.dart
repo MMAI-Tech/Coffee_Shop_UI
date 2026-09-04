@@ -17,7 +17,7 @@ class CoffeeCardInfo extends StatefulWidget {
     this.small,
     this.medium,
     this.large,
-    required this.data_name
+    required this.data_name,
   });
 
   final String path;
@@ -30,12 +30,12 @@ class CoffeeCardInfo extends StatefulWidget {
   final double? medium;
   final double? large;
   final String data_name;
+
   @override
   State<CoffeeCardInfo> createState() => _CoffeeCardState();
 }
 
 class _CoffeeCardState extends State<CoffeeCardInfo> {
-
   @override
   Widget build(BuildContext context) {
     double sw = MediaQuery.of(context).size.width;
@@ -50,19 +50,15 @@ class _CoffeeCardState extends State<CoffeeCardInfo> {
                 children: [
                   // product images and basic info section
                   ClipRRect(
-          borderRadius: BorderRadius.only(
-          bottomLeft: Radius.circular(sw*0.08),
-          bottomRight: Radius.circular(sw*0.08),
-        ),
+                    borderRadius: BorderRadius.only(
+                      bottomLeft: Radius.circular(sw * 0.08),
+                      bottomRight: Radius.circular(sw * 0.08),
+                    ),
                     child: Container(
                       height: sh * 0.55,
                       width: double.infinity,
-                    
-                       
-                      child: Image.asset(
-                        widget.path,
-                        fit: BoxFit.cover,
-                      ),
+
+                      child: Image.asset(widget.path, fit: BoxFit.cover),
                     ),
                   ),
                   // upper part of image
@@ -102,31 +98,38 @@ class _CoffeeCardState extends State<CoffeeCardInfo> {
                                   ),
                                 ),
                               ),
-                              Consumer(builder: (context,ref,child){
-                                bool isVal = ref.watch((isAdd("fav")));
-                                return  GestureDetector(
-                                  onTap: (){
-                                    ref.read(isAdd("fav").notifier).update((state)=>!state);
-                                  },
-                                  child: Container(
-                                    height: sh * 0.06,
-                                    width: sw * 0.12,
-                                    decoration: BoxDecoration(
-                                      color: Color(
-                                        0xFF0C0F14,
-                                      ).withValues(alpha: 0.5),
-                                      borderRadius: BorderRadius.circular(
-                                        sw * 0.10,
+                              Consumer(
+                                builder: (context, ref, child) {
+                                  bool isVal = ref.watch((isAdd("fav")));
+                                  return GestureDetector(
+                                    onTap: () {
+                                      ref
+                                          .read(isAdd("fav").notifier)
+                                          .update((state) => !state);
+                                    },
+                                    child: Container(
+                                      height: sh * 0.06,
+                                      width: sw * 0.12,
+                                      decoration: BoxDecoration(
+                                        color: Color(
+                                          0xFF0C0F14,
+                                        ).withValues(alpha: 0.5),
+                                        borderRadius: BorderRadius.circular(
+                                          sw * 0.10,
+                                        ),
+                                      ),
+                                      child: Icon(
+                                        isVal
+                                            ? Icons.favorite
+                                            : Icons.favorite_border_outlined,
+                                        color: isVal
+                                            ? Colors.deepOrange
+                                            : Colors.white,
                                       ),
                                     ),
-                                    child: Icon(
-                                      isVal ? Icons.favorite:Icons.favorite_border_outlined,
-                                      color:isVal?Colors.red: Colors.white,
-                                    ),
-                                  ),
-                                );
-                              }),
-
+                                  );
+                                },
+                              ),
                             ],
                           ),
                         ),
@@ -164,7 +167,7 @@ class _CoffeeCardState extends State<CoffeeCardInfo> {
                                         size: sw * 0.08,
                                       ),
                                       Data(
-                                        text:widget.rate??"0.0",
+                                        text: widget.rate ?? "0.0",
                                         color: Colors.white,
                                         size: sw * 0.07,
                                       ),
@@ -178,15 +181,15 @@ class _CoffeeCardState extends State<CoffeeCardInfo> {
                                   ),
                                 ],
                               ),
+                              SizedBox(height: sh * 0.01),
                               Data(
-                                text: widget.type??"No Attribute",
+                                text: widget.type ?? "No Attribute",
                                 color: Colors.white,
                                 size: sw * 0.04,
                               ),
-                              SizedBox(height: sh * 0.02),
+                              SizedBox(height: sh * 0.03),
                               Data(
-                                text:
-                                  widget.description??"No Description",
+                                text: widget.description ?? "No Description",
                                 color: Colors.white,
                                 size: sw * 0.042,
                               ),
@@ -222,11 +225,24 @@ class _CoffeeCardState extends State<CoffeeCardInfo> {
                             children: [
                               SizeCard(
                                 ontap: () {
-                                  ref.read(size_num(widget.data_name).notifier).state = 0;
-                                  ref.read(total_price(widget.data_name).notifier).state = widget.small??3.50;
-                                  ref.read(isAdd("Extras").notifier).state = false;
-                                  ref.read(isAdd("Syrup").notifier).state = false;
-
+                                  ref
+                                          .read(
+                                            size_num(widget.data_name).notifier,
+                                          )
+                                          .state =
+                                      0;
+                                  ref
+                                          .read(
+                                            total_price(
+                                              widget.data_name,
+                                            ).notifier,
+                                          )
+                                          .state =
+                                      widget.small ?? 3.50;
+                                  ref.read(isAdd("Extras").notifier).state =
+                                      false;
+                                  ref.read(isAdd("Syrup").notifier).state =
+                                      false;
                                 },
                                 size: "Small",
                                 weight: "8oz",
@@ -239,10 +255,24 @@ class _CoffeeCardState extends State<CoffeeCardInfo> {
                               ),
                               SizeCard(
                                 ontap: () {
-                                  ref.read(size_num(widget.data_name).notifier).state = 1;
-                                  ref.read(total_price(widget.data_name).notifier).state = widget.medium??4.20;
-                                  ref.read(isAdd("Extras").notifier).state = false;
-                                  ref.read(isAdd("Syrup").notifier).state = false;
+                                  ref
+                                          .read(
+                                            size_num(widget.data_name).notifier,
+                                          )
+                                          .state =
+                                      1;
+                                  ref
+                                          .read(
+                                            total_price(
+                                              widget.data_name,
+                                            ).notifier,
+                                          )
+                                          .state =
+                                      widget.medium ?? 4.20;
+                                  ref.read(isAdd("Extras").notifier).state =
+                                      false;
+                                  ref.read(isAdd("Syrup").notifier).state =
+                                      false;
                                 },
                                 size: "Medium",
                                 weight: "12oz",
@@ -255,13 +285,24 @@ class _CoffeeCardState extends State<CoffeeCardInfo> {
                               ),
                               SizeCard(
                                 ontap: () {
-                                  ref.read(size_num(widget.data_name).notifier).state = 2;
                                   ref
-                                          .read(total_price(widget.data_name).notifier)
+                                          .read(
+                                            size_num(widget.data_name).notifier,
+                                          )
                                           .state =
-                                      widget.large??4.90;
-                                  ref.read(isAdd("Extras").notifier).state = false;
-                                  ref.read(isAdd("Syrup").notifier).state = false;
+                                      2;
+                                  ref
+                                          .read(
+                                            total_price(
+                                              widget.data_name,
+                                            ).notifier,
+                                          )
+                                          .state =
+                                      widget.large ?? 4.90;
+                                  ref.read(isAdd("Extras").notifier).state =
+                                      false;
+                                  ref.read(isAdd("Syrup").notifier).state =
+                                      false;
                                 },
                                 size: "Large",
                                 weight: "16oz",
@@ -293,11 +334,28 @@ class _CoffeeCardState extends State<CoffeeCardInfo> {
                                 ExtrasTile(
                                   toggleValue: isSwitch,
                                   onTap: () {
-                                    ref.read(isAdd("Extras").notifier).update((state) => !state);
-                                    if(isSwitch){
-                                      ref.read(total_price(widget.data_name).notifier,).state -= 0.60;}
-                                    else {
-                                      ref.read(total_price(widget.data_name).notifier,).state += 0.60;}
+                                    ref
+                                        .read(isAdd("Extras").notifier)
+                                        .update((state) => !state);
+                                    if (isSwitch) {
+                                      ref
+                                              .read(
+                                                total_price(
+                                                  widget.data_name,
+                                                ).notifier,
+                                              )
+                                              .state -=
+                                          0.60;
+                                    } else {
+                                      ref
+                                              .read(
+                                                total_price(
+                                                  widget.data_name,
+                                                ).notifier,
+                                              )
+                                              .state +=
+                                          0.60;
+                                    }
                                   },
                                   icon: Icons.local_drink,
                                   name: "Extra Shot",
@@ -306,11 +364,28 @@ class _CoffeeCardState extends State<CoffeeCardInfo> {
                                 SizedBox(height: sh * 0.01),
                                 ExtrasTile(
                                   onTap: () {
-                                    ref.read(isAdd("Syrup").notifier).update((state) => !state);
-                                    if (isSwitch1){
-                                         ref.read(total_price(widget.data_name).notifier,).state -= 0.60;}
-                                    else {
-                                         ref.read(total_price(widget.data_name).notifier,).state += 0.60;}
+                                    ref
+                                        .read(isAdd("Syrup").notifier)
+                                        .update((state) => !state);
+                                    if (isSwitch1) {
+                                      ref
+                                              .read(
+                                                total_price(
+                                                  widget.data_name,
+                                                ).notifier,
+                                              )
+                                              .state -=
+                                          0.60;
+                                    } else {
+                                      ref
+                                              .read(
+                                                total_price(
+                                                  widget.data_name,
+                                                ).notifier,
+                                              )
+                                              .state +=
+                                          0.60;
+                                    }
                                   },
                                   toggleValue: isSwitch1,
                                   icon: Icons.liquor,
@@ -341,7 +416,7 @@ class _CoffeeCardState extends State<CoffeeCardInfo> {
             builder: (context, ref, child) {
               num count = ref.watch(counter(widget.data_name));
               num base_price = ref.watch(total_price(widget.data_name));
-              num Total = base_price*(count>0? count:1);
+              num Total = base_price * (count > 0 ? count : 1);
               return Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -356,11 +431,15 @@ class _CoffeeCardState extends State<CoffeeCardInfo> {
                         GestureDetector(
                           onTap: () {
                             count <= 1
-                                ? ref.read(counter(widget.data_name).notifier).state = 1
-                                :
-
-                            ref.read(counter(widget.data_name).notifier).state--
-                            ;
+                                ? ref
+                                          .read(
+                                            counter(widget.data_name).notifier,
+                                          )
+                                          .state =
+                                      1
+                                : ref
+                                      .read(counter(widget.data_name).notifier)
+                                      .state--;
                           },
                           child: Container(
                             width: sw * 0.1,
@@ -383,7 +462,9 @@ class _CoffeeCardState extends State<CoffeeCardInfo> {
                         ),
                         GestureDetector(
                           onTap: () {
-                            ref.read(counter(widget.data_name).notifier).state++;
+                            ref
+                                .read(counter(widget.data_name).notifier)
+                                .state++;
                           },
                           child: Container(
                             width: sw * 0.1,

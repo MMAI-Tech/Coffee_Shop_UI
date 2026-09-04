@@ -11,7 +11,7 @@ class Data extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       text,
-      style: TextStyle(fontSize: size, color: color??Colors.grey[800],fontWeight: FontWeight.bold),
+      style: TextStyle(fontSize: size, color: color??Colors.grey[800],fontWeight: FontWeight.bold,height: 1),
     );
   }
 }
