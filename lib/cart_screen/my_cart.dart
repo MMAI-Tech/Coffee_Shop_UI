@@ -1,3 +1,5 @@
+import 'package:coffee_shop_ui/cart_screen/cart_item.dart';
+import 'package:coffee_shop_ui/cart_screen/item_riverpod.dart';
 import 'package:coffee_shop_ui/home_page/coffee_shop.dart';
 import 'package:coffee_shop_ui/home_page/text.dart';
 import 'package:flutter/material.dart';
@@ -6,14 +8,14 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../home_page/coffee_name_riverpod.dart';
 import '../home_page/nav_icon.dart';
 
-class MyCart extends StatefulWidget {
+class MyCart extends ConsumerStatefulWidget {
   const MyCart({super.key});
 
   @override
-  State<MyCart> createState() => _MyCardState();
+  ConsumerState<MyCart> createState() => _MyCardState();
 }
 
-class _MyCardState extends State<MyCart> {
+class _MyCardState extends ConsumerState<MyCart> {
   @override
   Widget build(BuildContext context) {
     double sw = MediaQuery.of(context).size.width;
@@ -45,131 +47,44 @@ class _MyCardState extends State<MyCart> {
                           ],
 
                         ),
-                        Icon(Icons.delete_forever_outlined,color:Colors.white,size: sw*0.1,)
+                        GestureDetector(
+                            onTap: (){
+                              ref.read(itemProvider.notifier).deleteAll();
+                            },
+                            child: Icon(Icons.delete_forever_outlined,color:Colors.white,size: sw*0.1,))
                       ],
                     ),
-                    SizedBox(height: sw*0.05),
+                 SizedBox(height: sh*0.022,),
                     // cart items
                     Container(
                       width: double.infinity,
-                      height: sw*0.35,
-                      padding: EdgeInsets.all(sw*0.03),
-                      decoration: BoxDecoration(
-                          color:  Color(0xFF1E242E).withValues(alpha: 0.4),
-                          borderRadius: BorderRadius.circular(sw*0.04)
-                      ),
-                      child: Center(
-                        child: Row(
-                          children: [
-                            ClipRRect(
-                              borderRadius: BorderRadius.circular(sw*0.03),
-                              child: Container(
-                                width: sw*0.24,
-                                height: double.infinity,
-                                child: Image.asset("assets/images/coffee1.png",fit: BoxFit.cover,),
+                      height: sw*0.8,
+
+                      child: Consumer(builder: (context,ref,child){
+                        final item = ref.watch(itemProvider);
+                        return item.isEmpty ?
+                            Center(
+                              child: Column(
+                                children: [
+                                  Image.asset("assets/images/cart.png",width: sw*0.6,),
+                                  Data(text: "Your Cart is Empty", size: sw*0.07,color: Colors.grey,),
+                                ],
                               ),
-                            ),
-                            SizedBox(width: sw*0.04),
-                            Expanded(
-                              child: Container(
-                                height: double.infinity,
-                                child: Column(
-                                  children: [
-                                    Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Data(text: "Cappuccino",color: Colors.white,size: sw*0.05,),
-                                        Icon(Icons.delete_forever_outlined,color: Colors.deepOrange,size: sw*0.07,)
-                                      ],
-                                    ),
-                                    SizedBox(height: sh*0.012,),
-                                    Row(
-                                      children: [
-                                        Data(text: "With Milk",color: Colors.grey,size: sw*0.04,),
-                                        SizedBox(width: sw*0.04,),
-                                        Container(
-                                          height: sh*0.035,
-                                          width: sw*0.15,
-                                          decoration: BoxDecoration(
-                                              color: Colors.green.withValues(alpha: 0.4),
-                                              borderRadius: BorderRadius.circular(sw*0.05),
-                                              border: Border.all(color: Colors.green)
-
-                                          ),
-                                          child: Center(
-                                            child: Data(text: "Small",color: Colors.green,),
-                                          ),
-                                        )
-                                      ],
-                                    ),
-                                    SizedBox(height: sh*0.03,),
-                                    Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Data(text: "\$"+"4.20",color: Colors.deepOrangeAccent,size: sw*0.047,),
-                                        Container(
-                                          height: sh*0.03,
-                                          width: sw * 0.4,
-
-                                          child: Row(
-                                            mainAxisAlignment: MainAxisAlignment.end,
-                                            crossAxisAlignment: CrossAxisAlignment.center,
-                                            children: [
-                                              GestureDetector(
-                                                onTap: () {
-
-                                                },
-                                                child: Container(
-                                                  width: sw * 0.07,
-                                                  height: sh * 0.05,
-                                                  decoration: BoxDecoration(
-                                                    color: Color(0xFF424242).withValues(alpha: 0.2),
-                                                    borderRadius: BorderRadius.circular(sw * 0.1),
-                                                  ),
-                                                  child: Icon(
-                                                    Icons.remove,
-                                                    color: Colors.white,
-                                                    size: sw * 0.05,
-                                                  ),
-                                                ),
-                                              ),
-                                              SizedBox(width: sw*0.05,),
-                                              Data(
-                                                text: "1",
-                                                color: Colors.white,
-                                                size: sw * 0.05,
-                                              ),
-                                              SizedBox(width: sw*0.05,),
-                                              GestureDetector(
-                                                onTap: () {
-
-                                                },
-                                                child: Container(
-                                                  width: sw * 0.07,
-                                                  height: sh * 0.05,
-                                                  decoration: BoxDecoration(
-                                                    color: Color(0xFF424242).withValues(alpha: 0.2),
-                                                    borderRadius: BorderRadius.circular(sw * 0.1),
-                                                  ),
-                                                  child: Icon(
-                                                    Icons.add,
-                                                    color: Colors.deepOrange,
-                                                    size: sw * 0.05,
-                                                  ),
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ],
-                                    )
-                                  ],
-                                ),
-                              ),
-                            )
-                          ],
-                        ),
-                      ),
+                            ): ListView.builder(
+                            padding: EdgeInsets.zero,
+                          itemCount: item.length,
+                            itemBuilder: (context,index){
+                            var current_item = item[index];
+                            return CartItem(
+                              image_path: current_item.image_path,
+                              name: current_item.name,
+                              extra: current_item.extra,
+                              price: current_item.price,
+                            delete_ontap: (){
+                                ref.read(itemProvider.notifier).delete(current_item.id);
+                            },);
+                        });
+                      }),
                     )
                   ],
                 ),
@@ -243,7 +158,7 @@ class _MyCardState extends State<MyCart> {
                       Data(text: "Proceed to Checkout",color: Colors.white,size: sw*0.04,),
                       Row(
                         children: [
-                          Data(text: "\$"+"155",color: Colors.white,size: sw*0.04,),
+                          Data(text: "\$"+"15.55",color: Colors.white,size: sw*0.04,),
                           SizedBox(width: sw*0.02,),
                           Icon(Icons.arrow_forward,color: Colors.white,size: sw*0.055,)
                         ],

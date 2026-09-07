@@ -1,3 +1,4 @@
+import 'package:coffee_shop_ui/cart_screen/item_riverpod.dart';
 import 'package:coffee_shop_ui/coffee_card/coffee_card_riverpod.dart';
 import 'package:coffee_shop_ui/coffee_card/extras_tile.dart';
 import 'package:coffee_shop_ui/coffee_card/size_card.dart';
@@ -483,40 +484,51 @@ class _CoffeeCardState extends State<CoffeeCardInfo> {
                       ],
                     ),
                   ),
-                  Container(
-                    height: double.infinity,
-                    width: sw * 0.55,
-                    padding: EdgeInsets.all(sw * 0.04),
-                    decoration: BoxDecoration(
-                      color: Colors.deepOrange,
-                      borderRadius: BorderRadius.circular(sw * 0.03),
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Data(
-                          text: "Add to Cart",
-                          color: Colors.white,
-                          size: sw * 0.05,
-                        ),
+                  Consumer(builder: (context,ref,child){
+                    return GestureDetector(
+                    onTap: (){
+                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                        content: Text("Item Added Successfully"),
+                            duration:  Duration(seconds: 2),
+                      ));
+                      ref.read(itemProvider.notifier).add(widget.path, widget.name, widget.type??"Milk", Total.toStringAsFixed(2));
+                    },
+                    child: Container(
+                      height: double.infinity,
+                      width: sw * 0.55,
+                      padding: EdgeInsets.all(sw * 0.04),
+                      decoration: BoxDecoration(
+                        color: Colors.deepOrange,
+                        borderRadius: BorderRadius.circular(sw * 0.03),
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Data(
+                            text: "Add to Cart",
+                            color: Colors.white,
+                            size: sw * 0.05,
+                          ),
 
-                        Row(
-                          children: [
-                            Data(
-                              text: "\$",
-                              color: Colors.white,
-                              size: sw * 0.05,
-                            ),
-                            Data(
-                              text: Total.toStringAsFixed(2),
-                              color: Colors.white,
-                              size: sw * 0.05,
-                            ),
-                          ],
-                        ),
-                      ],
+                          Row(
+                            children: [
+                              Data(
+                                text: "\$",
+                                color: Colors.white,
+                                size: sw * 0.05,
+                              ),
+                              Data(
+                                text: Total.toStringAsFixed(2),
+                                color: Colors.white,
+                                size: sw * 0.05,
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
                     ),
-                  ),
+                  );
+                  })
                 ],
               );
             },
