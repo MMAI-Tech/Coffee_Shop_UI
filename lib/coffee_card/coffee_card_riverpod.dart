@@ -3,6 +3,10 @@
 
 import 'package:flutter_riverpod/legacy.dart';
 
+final size_iden = StateProvider.family((ref,String){
+  return 2;
+});
+
 final size_num = StateProvider.family((ref,String){
   return 1;
 });

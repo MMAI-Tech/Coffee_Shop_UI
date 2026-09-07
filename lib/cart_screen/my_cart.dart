@@ -5,6 +5,7 @@ import 'package:coffee_shop_ui/home_page/text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../coffee_card/coffee_card_riverpod.dart';
 import '../home_page/coffee_name_riverpod.dart';
 import '../home_page/nav_icon.dart';
 
@@ -81,6 +82,7 @@ class _MyCardState extends ConsumerState<MyCart> {
                               extra: current_item.extra,
                               price: current_item.price,
                              quantity: current_item.quantity,
+                             data_name: current_item.card_iden,
                             delete_ontap: (){
                                 ref.read(itemProvider.notifier).delete(current_item.id);
                             },);
@@ -92,6 +94,21 @@ class _MyCardState extends ConsumerState<MyCart> {
               ),
             ),
           ),
+          Consumer(builder: (context,ref,child){
+            final items = ref.watch(itemProvider);
+
+            double subTotal = 0.0;
+
+            for (final item in items) {
+              final count = ref.watch(counter(item.card_iden));
+
+              subTotal += double.parse(item.price) * count;
+            }
+
+            double tax = subTotal * 0.05;
+            double deliveryFee = items.isEmpty ? 0.0 : 2.0;
+            double total = subTotal + deliveryFee + tax;
+            return
           Container(
             width: double.infinity,
             height: sh*0.35,
@@ -110,7 +127,7 @@ class _MyCardState extends ConsumerState<MyCart> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Data(text: "Subtotal",color: Colors.grey[300],size: sw*0.04,),
-                    Data(text: "\$"+"12.90",color: Colors.grey[300],size: sw*0.04,)
+                    Data(text: "\$"+subTotal.toStringAsFixed(2),color: Colors.grey[300],size: sw*0.04,)
                   ],
                 ),
                 SizedBox(height: sw*0.04,),
@@ -118,7 +135,7 @@ class _MyCardState extends ConsumerState<MyCart> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Data(text: "Delivery Fee",color: Colors.grey[300],size: sw*0.04,),
-                    Data(text: "\$"+"2.00",color: Colors.grey[300],size: sw*0.04,)
+                    Data(text: "\$"+deliveryFee.toStringAsFixed(2),color: Colors.grey[300],size: sw*0.04,)
                   ],
                 ),
                 SizedBox(height: sw*0.04,),
@@ -126,7 +143,7 @@ class _MyCardState extends ConsumerState<MyCart> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Data(text: "Tax (5%)",color: Colors.grey[300],size: sw*0.04,),
-                    Data(text: "\$"+"0.05",color: Colors.grey[300],size: sw*0.04,)
+                    Data(text: "\$"+tax.toStringAsFixed(2),color: Colors.grey[300],size: sw*0.04,)
                   ],
                 ),
                 SizedBox(height: sw*0.04,),
@@ -140,7 +157,7 @@ class _MyCardState extends ConsumerState<MyCart> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Data(text: "Total",color: Colors.grey[300],size: sw*0.05,),
-                    Data(text: "\$"+"15.55",color: Colors.deepOrangeAccent,size: sw*0.05,)
+                    Data(text: "\$"+total.toStringAsFixed(2),color: Colors.deepOrangeAccent,size: sw*0.05,)
                   ],
                 ),
                 SizedBox(height: sw*0.1,),
@@ -169,7 +186,8 @@ class _MyCardState extends ConsumerState<MyCart> {
                 )
               ],
             ),
-          )
+          );
+          })
         ],
       ),
 

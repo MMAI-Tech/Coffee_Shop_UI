@@ -10,7 +10,7 @@ final itemProvider = StateNotifierProvider<ItemNotifier,List<Item>>((ref){
 class ItemNotifier extends StateNotifier<List<Item>>{
   ItemNotifier() : super([]);
 
-  void add(String imagePath, String itemName, String itemExtra, String itemPrice,String itemQuantity){
+  void add(String imagePath, String itemName, String itemExtra, String itemPrice,String itemQuantity,String iden){
 
     final alreadyExists = state.any(
           (item) =>
@@ -28,13 +28,19 @@ class ItemNotifier extends StateNotifier<List<Item>>{
       name: itemName,
       extra: itemExtra,
       price: itemPrice,
-      quantity: itemQuantity
+      quantity: itemQuantity,
+      card_iden: iden,
     );
 
     state.add(item);
     state = state.toList();
   }
 
+  double getTotal() {
+    return state.fold(0.0, (total, item) {
+      return total + double.parse(item.price);
+    });
+  }
   void delete(String id){
     state.removeWhere((Item)=>Item.id == id);
     state = state.toList();

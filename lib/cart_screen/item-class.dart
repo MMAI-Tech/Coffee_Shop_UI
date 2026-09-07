@@ -7,6 +7,7 @@ class Item{
   String extra;
   String price;
   String quantity;
+  String card_iden;
 
   Item({
     required this.id,
@@ -15,5 +16,6 @@ class Item{
     required this.extra,
     required this.price,
     required this.quantity,
+    required this.card_iden,
   });
 }

@@ -226,6 +226,7 @@ class _CoffeeCardState extends State<CoffeeCardInfo> {
                             children: [
                               SizeCard(
                                 ontap: () {
+                                  ref.read(size_iden(widget.data_name).notifier).state = 1;
                                   ref
                                           .read(
                                             size_num(widget.data_name).notifier,
@@ -256,6 +257,7 @@ class _CoffeeCardState extends State<CoffeeCardInfo> {
                               ),
                               SizeCard(
                                 ontap: () {
+                                  ref.read(size_iden(widget.data_name).notifier).state = 2;
                                   ref
                                           .read(
                                             size_num(widget.data_name).notifier,
@@ -286,6 +288,7 @@ class _CoffeeCardState extends State<CoffeeCardInfo> {
                               ),
                               SizeCard(
                                 ontap: () {
+                                  ref.read(size_iden(widget.data_name).notifier).state = 3;
                                   ref
                                           .read(
                                             size_num(widget.data_name).notifier,
@@ -432,15 +435,8 @@ class _CoffeeCardState extends State<CoffeeCardInfo> {
                         GestureDetector(
                           onTap: () {
                             count <= 1
-                                ? ref
-                                          .read(
-                                            counter(widget.data_name).notifier,
-                                          )
-                                          .state =
-                                      1
-                                : ref
-                                      .read(counter(widget.data_name).notifier)
-                                      .state--;
+                                ? ref.read(counter(widget.data_name).notifier,).state = 1 :
+                            ref.read(counter(widget.data_name).notifier).state--;
                           },
                           child: Container(
                             width: sw * 0.1,
@@ -492,7 +488,7 @@ class _CoffeeCardState extends State<CoffeeCardInfo> {
                         content: Text("Item Added Successfully"),
                             duration:  Duration(seconds: 2),
                       ));
-                      ref.read(itemProvider.notifier).add(widget.path, widget.name, widget.type??"Milk", Total.toStringAsFixed(2),quan.toString());
+                      ref.read(itemProvider.notifier).add(widget.path, widget.name, widget.type??"Milk", Total.toStringAsFixed(2),quan.toString(),widget.data_name);
                     },
                     child: Container(
                       height: double.infinity,
