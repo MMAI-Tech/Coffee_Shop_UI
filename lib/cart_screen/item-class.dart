@@ -6,6 +6,14 @@ class Item{
   String name;
   String extra;
   String price;
+  String quantity;
 
-  Item({required this.id,required this.image_path,required this.name,required this.extra,required this.price});
+  Item({
+    required this.id,
+    required this.image_path,
+    required this.name,
+    required this.extra,
+    required this.price,
+    required this.quantity,
+  });
 }

@@ -11,7 +11,8 @@ class CartItem extends StatefulWidget {
     required this.name,
     this.extra,
     required this.price,
-    this.delete_ontap
+    this.delete_ontap,
+    this.quantity
   });
 
   final String image_path;
@@ -19,6 +20,7 @@ class CartItem extends StatefulWidget {
   final String? extra;
   final String price;
   final VoidCallback? delete_ontap;
+  final String? quantity;
   @override
   State<CartItem> createState() => _CartItemState();
 }
@@ -115,7 +117,7 @@ class _CartItemState extends State<CartItem> {
                               ),
                               SizedBox(width: sw*0.05,),
                               Data(
-                                text: "1",
+                                text: widget.quantity??"1",
                                 color: Colors.white,
                                 size: sw * 0.05,
                               ),

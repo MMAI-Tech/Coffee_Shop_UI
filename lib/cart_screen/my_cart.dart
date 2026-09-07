@@ -80,6 +80,7 @@ class _MyCardState extends ConsumerState<MyCart> {
                               name: current_item.name,
                               extra: current_item.extra,
                               price: current_item.price,
+                             quantity: current_item.quantity,
                             delete_ontap: (){
                                 ref.read(itemProvider.notifier).delete(current_item.id);
                             },);

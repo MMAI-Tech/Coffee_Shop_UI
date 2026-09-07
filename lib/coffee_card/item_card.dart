@@ -484,14 +484,15 @@ class _CoffeeCardState extends State<CoffeeCardInfo> {
                       ],
                     ),
                   ),
-                  Consumer(builder: (context,ref,child){
+                  Consumer(builder: (context,ref,child){ 
+                    int quan = ref.watch(counter(widget.data_name));
                     return GestureDetector(
                     onTap: (){
                       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                         content: Text("Item Added Successfully"),
                             duration:  Duration(seconds: 2),
                       ));
-                      ref.read(itemProvider.notifier).add(widget.path, widget.name, widget.type??"Milk", Total.toStringAsFixed(2));
+                      ref.read(itemProvider.notifier).add(widget.path, widget.name, widget.type??"Milk", Total.toStringAsFixed(2),quan.toString());
                     },
                     child: Container(
                       height: double.infinity,
