@@ -2,6 +2,7 @@ import 'package:coffee_shop_ui/cart_screen/cart_item.dart';
 import 'package:coffee_shop_ui/cart_screen/item_riverpod.dart';
 import 'package:coffee_shop_ui/home_page/coffee_shop.dart';
 import 'package:coffee_shop_ui/home_page/text.dart';
+import 'package:coffee_shop_ui/payment_screen/payment_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -162,26 +163,31 @@ class _MyCardState extends ConsumerState<MyCart> {
                 ),
                 SizedBox(height: sw*0.1,),
 
-                Container(
-                  width: double.infinity,
-                  height: sh*0.07,
-                  padding: EdgeInsets.all(sw*0.03),
-                  decoration: BoxDecoration(
-                  color: Colors.deepOrangeAccent,
-                    borderRadius: BorderRadius.circular(sw*0.02),
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Data(text: "Proceed to Checkout",color: Colors.white,size: sw*0.04,),
-                      Row(
-                        children: [
-                          Data(text: "\$"+"15.55",color: Colors.white,size: sw*0.04,),
-                          SizedBox(width: sw*0.02,),
-                          Icon(Icons.arrow_forward,color: Colors.white,size: sw*0.055,)
-                        ],
-                      )
-                    ],
+                GestureDetector(
+                  onTap: (){
+                    Navigator.of(context).push(MaterialPageRoute(builder: (context)=>PaymentPage()));
+                  },
+                  child: Container(
+                    width: double.infinity,
+                    height: sh*0.07,
+                    padding: EdgeInsets.all(sw*0.03),
+                    decoration: BoxDecoration(
+                    color: Colors.deepOrangeAccent,
+                      borderRadius: BorderRadius.circular(sw*0.02),
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Data(text: "Proceed to Checkout",color: Colors.white,size: sw*0.04,),
+                        Row(
+                          children: [
+                            Data(text: "\$"+total.toStringAsFixed(2),color: Colors.white,size: sw*0.04,),
+                            SizedBox(width: sw*0.02,),
+                            Icon(Icons.arrow_forward,color: Colors.white,size: sw*0.055,)
+                          ],
+                        )
+                      ],
+                    ),
                   ),
                 )
               ],
